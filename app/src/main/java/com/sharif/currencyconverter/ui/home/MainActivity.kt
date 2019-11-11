@@ -1,4 +1,4 @@
-package com.sharif.currencyconverter.ui
+package com.sharif.currencyconverter.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -32,13 +32,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Initialize all fragments required for ViewPager.
+     * Initialize all fragments required for Tab ViewPager.
      * @return list of fragments
      */
     private fun getTabFragments(): MutableList<Fragment> {
-        return mutableListOf(FragmentRates.newInstance(),
+        return mutableListOf(
+            FragmentRates.newInstance(),
             FragmentConverter.newInstance(),
-            FragmentAlert.newInstance())
+            FragmentAlert.newInstance()
+        )
     }
 
 }
