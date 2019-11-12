@@ -37,8 +37,8 @@ class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolde
     inner class RateViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         private val ivCurrencySymbol = itemView.ivCurrencySymbol
-        private val tvCurrencySymbol = itemView.tvCurrencySymbol
-        private val tvCurrencyName = itemView.tvCurrencyName
+        private val tvCurrencySymbol = itemView.tvTitle
+        private val tvCurrencyName = itemView.tvDescription
         private val etCurrencyAmount = itemView.etCurrencyAmount
 
         fun bindTo(rate: Rate) {

@@ -2,6 +2,7 @@ package com.sharif.currencyconverter.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
@@ -16,6 +17,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initializeTabViewPager()
+
+        toolbar.setNavigationOnClickListener {
+            Toast.makeText(this, "Back Button is Clicked", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initializeTabViewPager() {

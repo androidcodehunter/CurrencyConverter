@@ -24,7 +24,7 @@
         app:srcCompat="@mipmap/ic_launcher" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvCurrencySymbol"
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -35,12 +35,12 @@
         tools:text="EU" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvCurrencyName"
+        android:id="@+id/tvDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        app:layout_constraintLeft_toLeftOf="@id/tvCurrencySymbol"
-        app:layout_constraintTop_toBottomOf="@id/tvCurrencySymbol"
+        app:layout_constraintLeft_toLeftOf="@id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
         tools:text="European" />
 
     <androidx.appcompat.widget.AppCompatEditText
