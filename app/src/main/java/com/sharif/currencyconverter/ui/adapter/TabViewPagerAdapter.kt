@@ -24,8 +24,7 @@ class TabViewPagerAdapter(private val fragmentActivity: FragmentActivity, privat
     companion object{
         private val TAB_TITLES = arrayOf(
             R.string.tab_title_rates,
-            R.string.tab_title_converter,
-            R.string.tab_title_alert
+            R.string.tab_title_converter
         )
     }
 

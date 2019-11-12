@@ -38,8 +38,7 @@ class MainActivity : AppCompatActivity() {
     private fun getTabFragments(): MutableList<Fragment> {
         return mutableListOf(
             FragmentRates.newInstance(),
-            FragmentConverter.newInstance(),
-            FragmentAlert.newInstance()
+            FragmentConverter.newInstance()
         )
     }
 

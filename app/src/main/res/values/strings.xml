@@ -2,6 +2,5 @@
     <string name="app_name">CurrencyConverter</string>
     <string name="tab_title_rates">Rates</string>
     <string name="tab_title_converter">Converter</string>
-    <string name="tab_title_alert">Alerts</string>
 
 </resources>
