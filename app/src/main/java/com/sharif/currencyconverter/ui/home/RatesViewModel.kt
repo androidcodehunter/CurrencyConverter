@@ -13,11 +13,10 @@ class RatesViewModel(private val ratesRepository: RatesRepository): ViewModel() 
         viewModelScope.launch(Dispatchers.IO){
             ratesRepository.getRates("EUR")
         }
-
     }
 
     @Suppress("UNCHECKED_CAST")
-    class TasksViewModelFactory(private val ratesRepository: RatesRepository): ViewModelProvider.NewInstanceFactory(){
+    class RatesViewModelFactory(private val ratesRepository: RatesRepository): ViewModelProvider.NewInstanceFactory(){
         override fun <T : ViewModel?> create(modelClass: Class<T>): T = (RatesViewModel(ratesRepository) as T)
     }
 
