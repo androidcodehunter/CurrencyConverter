@@ -41,12 +41,17 @@ class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolde
         private val tvCurrencyName = itemView.tvDescription
         private val etCurrencyAmount = itemView.etCurrencyAmount
 
+        init {
+            etCurrencyAmount.setOnFocusChangeListener { view, hasFocus ->
+
+            }
+        }
+
         fun bindTo(rate: Rate) {
             tvCurrencySymbol.text = rate.symbol
             tvCurrencyName.text = "European"
             etCurrencyAmount.setText(rate.rate.toString())
         }
-
     }
 
     companion object{

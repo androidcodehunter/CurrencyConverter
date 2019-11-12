@@ -31,7 +31,16 @@ class FragmentRates: Fragment() {
             adapter = currencyRatesAdapter
         }
 
-        currencyRatesAdapter.submitList(mutableListOf(Rate("eu", 0.0)))
+        currencyRatesAdapter.submitList(mutableListOf(Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0)))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
