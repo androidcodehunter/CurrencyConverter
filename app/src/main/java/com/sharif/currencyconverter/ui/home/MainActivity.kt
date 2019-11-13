@@ -1,8 +1,8 @@
 package com.sharif.currencyconverter.ui.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
@@ -19,8 +19,21 @@ class MainActivity : AppCompatActivity() {
         initializeTabViewPager()
 
         toolbar.setNavigationOnClickListener {
-            Toast.makeText(this, "Back Button is Clicked", Toast.LENGTH_SHORT).show()
+            showAreYouSureDialog()
         }
+    }
+
+    /**
+     * When user click on back button, this show a confirmation dialog.
+     */
+    private fun showAreYouSureDialog() {
+        AlertDialog.Builder(this)
+            .setMessage(R.string.are_you_sure_exit)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                finish()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     private fun initializeTabViewPager() {
