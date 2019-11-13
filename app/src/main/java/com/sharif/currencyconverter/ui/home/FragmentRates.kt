@@ -41,6 +41,8 @@ class FragmentRates: Fragment() {
             Rate("eu", 0.0),
             Rate("eu", 0.0),
             Rate("eu", 0.0)))
+
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

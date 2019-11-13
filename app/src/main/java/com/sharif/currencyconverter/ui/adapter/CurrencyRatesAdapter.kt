@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sharif.currencyconverter.R
 import com.sharif.currencyconverter.data.model.Rate
 import kotlinx.android.synthetic.main.list_item_currency_converter.view.*
-import timber.log.Timber
 
 class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolder>(CURRENCY_RATES_COMPARATOR) {
 
@@ -43,13 +42,26 @@ class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolde
         private val etCurrencyAmount = itemView.etCurrencyAmount
 
         init {
-            etCurrencyAmount.setOnFocusChangeListener { view, hasFocus ->
+            etCurrencyAmount.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus){
-                    layoutPosition.takeIf { it > 0 }?.also {
-                        Timber.d("Current Position %s", it)
+                    layoutPosition.takeIf { it > 0 }?.also { position ->
+                        moveSelectedListItemToTop(position)
                     }
                 }
             }
+        }
+
+        /**
+         * Move current position item to top of the RecyclerView.
+         * @param currentPosition current selected position.
+         */
+        private fun moveSelectedListItemToTop(currentPosition: Int) {
+            val newList = currentList.toMutableList()
+            newList.removeAt(currentPosition).also {
+                newList.add(0, it)
+            }
+            submitList(newList)
+            notifyItemMoved(currentPosition, 0)
         }
 
         fun bindTo(rate: Rate) {
@@ -60,7 +72,6 @@ class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolde
     }
 
     companion object{
-
         /**
          * Currency comparator to check for new data updates only, it will ignore duplicate data update.
          * This technique is very effective when you update data continuously.
