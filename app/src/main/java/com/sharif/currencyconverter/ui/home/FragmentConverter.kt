@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.sharif.currencyconverter.R
-import com.sharif.currencyconverter.data.model.Rate
 import com.sharif.currencyconverter.ui.adapter.CurrencyRatesAdapter
 import kotlinx.android.synthetic.main.fragment_converter.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,21 +31,7 @@ class FragmentConverter: Fragment() {
             adapter = currencyRatesAdapter
         }
 
-
-        ratesViewModel.getRates()
-
-        currencyRatesAdapter.submitList(mutableListOf(
-            Rate("eu", 0.0),
-            Rate("eu", 0.0),
-            Rate("eu", 0.0),
-            Rate("eu", 0.0),
-            Rate("eu", 0.0),
-            Rate("eu", 0.0),
-            Rate("eu", 0.0),
-            Rate("eu", 0.0),
-            Rate("eu", 0.0),
-            Rate("eu", 0.0)
-        ))
+        currencyRatesAdapter.submitList(ratesViewModel.getRates())
     }
 
 
