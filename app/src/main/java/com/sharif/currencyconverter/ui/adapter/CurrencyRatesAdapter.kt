@@ -99,7 +99,7 @@ class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolde
             tvCurrencySymbol.text = rate.symbol
             tvCurrencyName.text = "European"
             //Top amount is focused so we dont changed the top amount
-            if (!etCurrencyAmount.hasFocus()){
+            if (!etCurrencyAmount.isFocused){
                 etCurrencyAmount.setText((rate.rate * amount).toString())
             }
         }
