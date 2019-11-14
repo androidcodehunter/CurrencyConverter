@@ -2,6 +2,7 @@ package com.sharif.currencyconverter
 
 import android.app.Application
 import com.sharif.currencyconverter.di.converterRepositoryModule
+import com.sharif.currencyconverter.di.converterViewModels
 import com.sharif.currencyconverter.di.netWorkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -22,7 +23,8 @@ class ConverterApplication: Application() {
         startKoin {
             androidContext(this@ConverterApplication)
             modules(listOf(netWorkModule,
-                converterRepositoryModule))
+                converterRepositoryModule,
+                converterViewModels))
         }
     }
 

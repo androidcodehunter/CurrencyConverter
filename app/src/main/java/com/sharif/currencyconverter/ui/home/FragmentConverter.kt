@@ -6,9 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.sharif.currencyconverter.R
+import com.sharif.currencyconverter.data.model.Rate
+import com.sharif.currencyconverter.ui.adapter.CurrencyRatesAdapter
+import kotlinx.android.synthetic.main.fragment_converter.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentConverter: Fragment() {
 
+    private lateinit var currencyRatesAdapter: CurrencyRatesAdapter
+    private val ratesViewModel: RatesConverterViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -17,6 +23,32 @@ class FragmentConverter: Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_converter, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        currencyRatesAdapter = CurrencyRatesAdapter()
+        rvRatesConverter.apply {
+            adapter = currencyRatesAdapter
+        }
+
+
+        ratesViewModel.getRates()
+
+        currencyRatesAdapter.submitList(mutableListOf(
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0),
+            Rate("eu", 0.0)
+        ))
+    }
+
 
     companion object{
         fun newInstance(): FragmentConverter {
