@@ -1,5 +1,7 @@
 package com.sharif.currencyconverter.ui.adapter
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sharif.currencyconverter.R
 import com.sharif.currencyconverter.data.model.Rate
 import kotlinx.android.synthetic.main.list_item_currency_converter.view.*
-import timber.log.Timber
 
 class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolder>(CURRENCY_RATES_COMPARATOR) {
+
+    private var amount = 0.0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RateViewHolder {
         return RateViewHolder(
@@ -35,6 +38,11 @@ class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolde
         holder.bindTo(getItem(position))
     }
 
+    fun updateAmount(amount: Double){
+        this.amount = amount
+        notifyItemRangeChanged(0, currentList.size - 1, amount)
+    }
+
     inner class RateViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         private val ivCurrencySymbol = itemView.ivCurrencySymbol
@@ -47,11 +55,27 @@ class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolde
                 if (hasFocus){
                     layoutPosition.takeIf { it > 0 }?.also { position ->
                         moveSelectedListItemToTop(position)
-                        etCurrencyAmount.requestFocus()
                         etCurrencyAmount.setSelection(etCurrencyAmount.text?.length ?: 0)
                     }
                 }
             }
+
+            etCurrencyAmount.addTextChangedListener(object : TextWatcher{
+                override fun afterTextChanged(s: Editable?) {}
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if (etCurrencyAmount.isFocused){
+                        s?.let {
+                            if (!s.isEmpty()){
+                                updateAmount(s.toString().toDouble())
+                            }
+                        }
+                    }
+                }
+
+            })
 
             itemView.setOnClickListener {
                etCurrencyAmount.requestFocus()
@@ -74,7 +98,10 @@ class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolde
         fun bindTo(rate: Rate) {
             tvCurrencySymbol.text = rate.symbol
             tvCurrencyName.text = "European"
-            etCurrencyAmount.setText(rate.rate.toString())
+            //Top amount is focused so we dont changed the top amount
+            if (!etCurrencyAmount.hasFocus()){
+                etCurrencyAmount.setText((rate.rate * amount).toString())
+            }
         }
     }
 
