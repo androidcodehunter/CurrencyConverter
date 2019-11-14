@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.list_item_currency_converter.view.*
 
 class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolder>(CURRENCY_RATES_COMPARATOR) {
 
-    private var amount = 0.0
+    private var amount = 1.0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RateViewHolder {
         return RateViewHolder(
