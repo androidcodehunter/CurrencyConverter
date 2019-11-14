@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         pagerCurrency.apply {
             adapter = tabViewPagerAdapter
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            currentItem = 1
         }
 
         TabLayoutMediator(tabLayout, pagerCurrency){tab, position ->
