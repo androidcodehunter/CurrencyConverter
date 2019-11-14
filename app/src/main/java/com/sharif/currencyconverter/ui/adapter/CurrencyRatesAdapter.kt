@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sharif.currencyconverter.R
 import com.sharif.currencyconverter.data.model.Rate
 import kotlinx.android.synthetic.main.list_item_currency_converter.view.*
+import timber.log.Timber
 
 class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolder>(CURRENCY_RATES_COMPARATOR) {
 
@@ -46,8 +47,14 @@ class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolde
                 if (hasFocus){
                     layoutPosition.takeIf { it > 0 }?.also { position ->
                         moveSelectedListItemToTop(position)
+                        etCurrencyAmount.requestFocus()
+                        etCurrencyAmount.setSelection(etCurrencyAmount.text?.length ?: 0)
                     }
                 }
+            }
+
+            itemView.setOnClickListener {
+               etCurrencyAmount.requestFocus()
             }
         }
 

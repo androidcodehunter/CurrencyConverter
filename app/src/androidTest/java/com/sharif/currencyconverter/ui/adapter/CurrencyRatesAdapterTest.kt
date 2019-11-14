@@ -20,7 +20,7 @@ class CurrencyRatesAdapterTest{
     var activityActivityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java)
 
     @Test
-    fun checkIfCurrentFocusedItemMovedToTop(){
+    fun checkIfCurrentClickedOrFocusedItemMovedToTop(){
         //make a list item focused by writing something on it.
         onView(withRecyclerView(R.id.rvCurrencyRates).atPositionOnView(1, R.id.etCurrencyAmount)).perform(
             clearText(), typeText("1.123"))

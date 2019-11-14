@@ -51,6 +51,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:minWidth="@dimen/currency_input_min_width"
+        android:inputType="numberDecimal"
         android:gravity="center_horizontal"
         tools:text="4.5678" />
 
