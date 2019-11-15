@@ -1,10 +1,7 @@
 package com.sharif.currencyconverter.util
 
-import androidx.test.platform.app.InstrumentationRegistry
 import com.sharif.currencyconverter.R
-import org.hamcrest.core.Is.`is`
 import org.junit.Test
-
 import org.junit.Assert.*
 
 class CurrencyUtilsTest {

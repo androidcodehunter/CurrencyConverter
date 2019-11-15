@@ -67,6 +67,10 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
 
     fun updateAmount(amount: Double){
         this.amount = amount
+
+        /*
+        * TODO Immediate update currency
+        * */
         notifyItemRangeChanged(1, currencies.size - 1, amount)
     }
 
