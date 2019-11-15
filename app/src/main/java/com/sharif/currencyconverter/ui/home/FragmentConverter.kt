@@ -30,7 +30,7 @@ class FragmentConverter: Fragment() {
             rates?.add(0, Rate(it.data.base, 0.0))
             currencyRatesAdapter.submitList(rates)
             Timber.d("${rates?.size}")
-        }else if (it is Result.Error){
+        }else{
             Timber.d("Error")
 
             hideLoading()
@@ -61,8 +61,7 @@ class FragmentConverter: Fragment() {
             adapter = currencyRatesAdapter
         }
 
-        ratesViewModel.getRates("EUR").observe(viewLifecycleOwner, ratesObserver)
-
+        ratesViewModel.getRatesRepeatUntil("EUR").observe(viewLifecycleOwner, ratesObserver)
     }
 
 

@@ -9,13 +9,20 @@ import kotlinx.coroutines.delay
 
 class RatesConverterViewModel(private val ratesRepository: RatesRepository): ViewModel() {
 
-    fun getRates(symbol: String) = liveData{
+    /**
+     * Provide all rates in repeat times based on condition.
+     *
+     * @param times Executes the given function [action] specified number of [times]
+     * @param delayTime delay the operation specific time period
+     */
+    fun getRatesRepeatUntil(symbol: String, times: Int = Integer.MAX_VALUE, delayTime: Long = ONE_SECOND_IN_MILLIS) = liveData{
         emit(Result.Loading)
-        repeat(Integer.MAX_VALUE){
+        repeat(times){
             emit(ratesRepository.getRates(symbol))
-            delay(ONE_SECOND_IN_MILLIS)
+            delay(delayTime)
         }
     }
+
 
     @Suppress("UNCHECKED_CAST")
     class RatesViewModelFactory(private val ratesRepository: RatesRepository): ViewModelProvider.NewInstanceFactory(){
