@@ -5,7 +5,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sharif.currencyconverter.R
 import com.sharif.currencyconverter.data.model.Rate
@@ -135,19 +134,4 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
         }
     }
 
-    companion object{
-        /**
-         * Currency comparator to check for new data updates only, it will ignore duplicate data update.
-         * This technique is very effective when you update data continuously.
-         */
-        private val CURRENCY_RATES_COMPARATOR = object : DiffUtil.ItemCallback<Rate>() {
-            override fun areItemsTheSame(oldItem: Rate, newItem: Rate): Boolean {
-                return oldItem.symbol == newItem.symbol
-            }
-
-            override fun areContentsTheSame(oldItem: Rate, newItem: Rate): Boolean {
-                return oldItem.rate == newItem.rate
-            }
-        }
-    }
 }
