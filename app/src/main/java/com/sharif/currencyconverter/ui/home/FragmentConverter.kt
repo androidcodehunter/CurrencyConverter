@@ -23,11 +23,11 @@ class FragmentConverter: Fragment() {
         if (it is Result.Loading){
             showLoading()
         } else if (it is Result.Success){
-            Timber.d("Success")
+            Timber.d("Success $it")
             hideLoading()
             //Convert to rates
             val rates = it.data?.rates?.map { Rate(it.key, it.value) }?.toMutableList()
-            rates?.add(0, Rate(it.data.base, 0.0))
+            rates?.add(0, Rate(it.data.base, 1.0))
             currencyRatesAdapter.submitList(rates)
             Timber.d("${rates?.size}")
         }else{
@@ -36,6 +36,11 @@ class FragmentConverter: Fragment() {
             hideLoading()
         }
     }
+
+    private val amountObserver = androidx.lifecycle.Observer<Double>{
+        currencyRatesAdapter.updateAmount(it)
+    }
+
 
     private fun showLoading() {
         loading.visibility = View.VISIBLE
@@ -56,12 +61,16 @@ class FragmentConverter: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currencyRatesAdapter = CurrencyRatesAdapter()
+        currencyRatesAdapter = CurrencyRatesAdapter {
+                symbol, updatedAmount ->ratesViewModel.setRates(symbol, updatedAmount)
+        }
         rvRatesConverter.apply {
             adapter = currencyRatesAdapter
         }
 
-        ratesViewModel.getRatesRepeatUntil("EUR").observe(viewLifecycleOwner, ratesObserver)
+        ratesViewModel.getRates().observe(viewLifecycleOwner, ratesObserver)
+        ratesViewModel.getAmount().observe(viewLifecycleOwner, amountObserver)
+        ratesViewModel.setRates()
     }
 
 

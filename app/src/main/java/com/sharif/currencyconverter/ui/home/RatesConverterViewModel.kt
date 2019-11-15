@@ -1,28 +1,70 @@
 package com.sharif.currencyconverter.ui.home
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
+import com.sharif.currencyconverter.data.model.Rate
+import com.sharif.currencyconverter.data.model.RateConfig
+import com.sharif.currencyconverter.data.model.RateList
 import com.sharif.currencyconverter.data.source.RatesRepository
 import com.sharif.currencyconverter.data.source.Result
 import kotlinx.coroutines.delay
 
 class RatesConverterViewModel(private val ratesRepository: RatesRepository): ViewModel() {
 
-    /**
-     * Provide all rates in repeat times based on condition.
-     *
-     * @param times Executes the given function [action] specified number of [times]
-     * @param delayTime delay the operation specific time period
-     */
-    fun getRatesRepeatUntil(symbol: String, times: Int = Integer.MAX_VALUE, delayTime: Long = ONE_SECOND_IN_MILLIS) = liveData{
-        emit(Result.Loading)
-        repeat(times){
-            emit(ratesRepository.getRates(symbol))
-            delay(delayTime)
+    private var rates: LiveData<Result<RateList?>>
+    private val rateConfig = MutableLiveData<RateConfig>()
+    private val updateAmount = MutableLiveData<Double>()
+    private var currentBaseSymbol = ""
+    private var showLoading = true
+
+    init {
+        rates = Transformations.switchMap<RateConfig, Result<RateList?>>(rateConfig){ rateConfig ->
+            liveData {
+                if (showLoading){
+                    emit(Result.Loading)
+                    showLoading = false
+                }
+                repeat(rateConfig.times){
+                    emit(ratesRepository.getRates(rateConfig.rate.symbol))
+                    delay(rateConfig.delayTime)
+                }
+
+                currentBaseSymbol = rateConfig.rate.symbol
+            }
         }
     }
 
+    /**
+     * Provide all rates in repeat times based on configuration.
+     */
+    fun getRates(): LiveData<Result<RateList?>> {
+        return rates
+    }
+
+    fun getAmount(): LiveData<Double> {
+        return updateAmount
+    }
+
+    private fun setAmount(amount: Double){
+        updateAmount.postValue(amount)
+    }
+
+
+    /** Set rate configuration or update amount
+     *
+     *@param times Executes the given function [action] specified number of [times]
+     * @param delayTime delay the operation specific time period
+     */
+    fun setRates(symbol: String = "EUR",
+                 amount: Double = 1.0,
+                 times: Int = Integer.MAX_VALUE,
+                 delayTime: Long = ONE_SECOND_IN_MILLIS){
+        if (currentBaseSymbol == symbol){
+            setAmount(amount)
+        }else{
+            rateConfig.value = RateConfig(Rate(symbol, amount), times, delayTime)
+        }
+        currentBaseSymbol = symbol
+    }
 
     @Suppress("UNCHECKED_CAST")
     class RatesViewModelFactory(private val ratesRepository: RatesRepository): ViewModelProvider.NewInstanceFactory(){

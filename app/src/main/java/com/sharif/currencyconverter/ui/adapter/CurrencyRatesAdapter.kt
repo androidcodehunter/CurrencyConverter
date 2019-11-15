@@ -12,8 +12,10 @@ import com.sharif.currencyconverter.R
 import com.sharif.currencyconverter.data.model.Rate
 import com.sharif.currencyconverter.util.CurrencyUtils
 import kotlinx.android.synthetic.main.list_item_currency_converter.view.*
+import timber.log.Timber
 
-class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolder>(CURRENCY_RATES_COMPARATOR) {
+class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
+    ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolder>(CURRENCY_RATES_COMPARATOR) {
 
     private var amount = 1.0
 
@@ -52,8 +54,6 @@ class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolde
         private val etCurrencyAmount = itemView.etCurrencyAmount
 
         init {
-
-
             etCurrencyAmount.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus){
                     layoutPosition.takeIf { it > 0 }?.also { position ->
@@ -65,14 +65,12 @@ class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolde
 
             etCurrencyAmount.addTextChangedListener(object : TextWatcher{
                 override fun afterTextChanged(s: Editable?) {}
-
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     if (etCurrencyAmount.isFocused){
                         s?.let {
-                            if (!s.isEmpty()){
-                                updateAmount(s.toString().toDouble())
+                            if (s.isNotEmpty()){
+                                onAmountUpdate(getItem(adapterPosition).symbol, s.toString().toDouble())
                             }
                         }
                     }

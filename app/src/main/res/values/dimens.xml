@@ -7,4 +7,5 @@
     <dimen name="flag_length">40dp</dimen>
     <dimen name="currency_input_min_width">92dp</dimen>
     <dimen name="input_max_width">192dp</dimen>
+    <dimen name="default_margin">8dp</dimen>
 </resources>
