@@ -15,7 +15,6 @@ import org.koin.test.AutoCloseKoinTest
 import org.koin.test.inject
 import java.net.UnknownHostException
 
-
 class RatesRepositoryImplTest: AutoCloseKoinTest(){
 
     val ratesRepository: RatesRepositoryImpl by inject()
