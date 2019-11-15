@@ -6,18 +6,43 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sharif.currencyconverter.R
 import com.sharif.currencyconverter.data.model.Rate
 import com.sharif.currencyconverter.util.CurrencyUtils
 import kotlinx.android.synthetic.main.list_item_currency_converter.view.*
-import timber.log.Timber
 
 class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
-    ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolder>(CURRENCY_RATES_COMPARATOR) {
+    RecyclerView.Adapter<CurrencyRatesAdapter.RateViewHolder>() {
 
+    private var symbolAndRates = mutableMapOf<String, Rate>()
+    private val currencies = mutableListOf<String>()
     private var amount = 1.0
+
+    fun submitList(list: MutableList<Rate>?) {
+        //Update the rates based on symbol
+        list?.forEach {
+            symbolAndRates[it.symbol] = it
+        }
+
+        if (currencies.isEmpty()){
+            list?.let { rates ->
+                currencies.addAll(rates.map { it.symbol})
+            }
+        }
+
+        list?.let {
+            notifyItemRangeChanged(0, it.size.minus(1), amount)
+        }
+
+    }
+
+    override fun getItemCount() = currencies.size
+
+    fun getItem(position: Int): Rate?{
+        return symbolAndRates.get(currencies.get(position))
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RateViewHolder {
         return RateViewHolder(
@@ -33,17 +58,17 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
         if (payloads.isEmpty()){
             super.onBindViewHolder(holder, position, payloads)
         } else{
-            holder.bindTo(getItem(position))
+            holder.bindTo(getItem(position)!!)
         }
     }
 
     override fun onBindViewHolder(holder: RateViewHolder, position: Int) {
-        holder.bindTo(getItem(position))
+        holder.bindTo(getItem(position)!!)
     }
 
     fun updateAmount(amount: Double){
         this.amount = amount
-        notifyItemRangeChanged(0, currentList.size - 1, amount)
+        notifyItemRangeChanged(1, currencies.size - 1, amount)
     }
 
     inner class RateViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -70,7 +95,7 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
                     if (etCurrencyAmount.isFocused){
                         s?.let {
                             if (s.isNotEmpty()){
-                                onAmountUpdate(getItem(adapterPosition).symbol, s.toString().toDouble())
+                                onAmountUpdate(getItem(adapterPosition)!!.symbol, s.toString().toDouble())
                             }
                         }
                     }
@@ -88,11 +113,10 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
          * @param currentPosition current selected position.
          */
         private fun moveSelectedListItemToTop(currentPosition: Int) {
-            val newList = currentList.toMutableList()
-            newList.removeAt(currentPosition).also {
-                newList.add(0, it)
+            currencies.removeAt(currentPosition).also {
+                currencies.add(0, it)
             }
-            submitList(newList)
+            ///submitList(newList)
             notifyItemMoved(currentPosition, 0)
         }
 
@@ -122,7 +146,7 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
             }
 
             override fun areContentsTheSame(oldItem: Rate, newItem: Rate): Boolean {
-                return oldItem == newItem
+                return oldItem.rate == newItem.rate
             }
         }
     }
