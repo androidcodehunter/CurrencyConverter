@@ -9,5 +9,5 @@ import org.koin.dsl.module
 val converterRepositoryModule = module {
     factory { RatesLocalDataSource() }
     factory { RatesRemoteDataSource(get()) }
-    factory { RatesRepositoryImpl(get(), get()) }
+    single { RatesRepositoryImpl(get() as RatesLocalDataSource, get() as RatesRemoteDataSource) }
 }
