@@ -5,9 +5,9 @@ import com.sharif.currencyconverter.data.source.local.RatesLocalDataSource
 import com.sharif.currencyconverter.data.source.remote.RatesRemoteDataSource
 
 class RatesRepositoryImpl(private val ratesRemoteDataSource: RatesRemoteDataSource,
-                          private val ratesLocalDataSource: RatesLocalDataSource) {
+                          private val ratesLocalDataSource: RatesLocalDataSource): RatesRepository {
 
-     suspend fun getRates(base: String): Result<RateList?> {
+     override suspend fun getRates(base: String): Result<RateList?> {
         return ratesRemoteDataSource.getRates(base)
     }
 

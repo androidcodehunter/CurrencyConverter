@@ -23,12 +23,16 @@ class FragmentConverter: Fragment() {
         if (it is Result.Loading){
             showLoading()
         } else if (it is Result.Success){
+            Timber.d("Success")
             hideLoading()
             //Convert to rates
-            val rates = it.data?.rates?.map { Rate(it.key, it.value) }
+            val rates = it.data?.rates?.map { Rate(it.key, it.value) }?.toMutableList()
+            rates?.add(0, Rate(it.data.base, 0.0))
             currencyRatesAdapter.submitList(rates)
             Timber.d("${rates?.size}")
         }else if (it is Result.Error){
+            Timber.d("Error")
+
             hideLoading()
         }
     }
@@ -57,10 +61,8 @@ class FragmentConverter: Fragment() {
             adapter = currencyRatesAdapter
         }
 
-
         ratesViewModel.getRates("EUR").observe(viewLifecycleOwner, ratesObserver)
 
-       /// currencyRatesAdapter.submitList(ratesViewModel.getRates())
     }
 
 

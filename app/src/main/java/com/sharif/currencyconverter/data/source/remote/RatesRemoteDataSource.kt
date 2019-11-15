@@ -6,14 +6,18 @@ import com.sharif.currencyconverter.data.source.RatesDataSource
 import com.sharif.currencyconverter.data.source.Result
 import java.lang.Exception
 
-class RatesRemoteDataSource(private val converterApiService: ConverterApiService) {
+class RatesRemoteDataSource(private val converterApiService: ConverterApiService): RatesDataSource {
 
-     suspend fun getRates(base: String): Result<RateList?> {
-        val response = converterApiService.getTopTracks(base)
-         return if (response.isSuccessful){
-             Result.Success(response.body())
-         }else{
-             Result.Error(Exception("Something went wrong "))
-         }
+    override suspend fun getRates(base: String): Result<RateList?> {
+        return try {
+            val response = converterApiService.getTopTracks(base)
+            if (response.isSuccessful) {
+                Result.Success(response.body())
+            } else {
+                Result.Error(Exception("Something went wrong "))
+            }
+        } catch (e: Exception) {
+            Result.Error(e)
         }
     }
+}
