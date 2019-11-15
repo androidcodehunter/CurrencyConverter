@@ -2,6 +2,7 @@ package com.sharif.currencyconverter.util
 
 import com.sharif.currencyconverter.R
 import com.sharif.currencyconverter.data.model.Currency
+import java.util.*
 
 object CurrencyUtils {
 
@@ -43,9 +44,9 @@ object CurrencyUtils {
     }
 
     fun getCurrency(key: String): Currency? {
-        if (CURRENCIES[key.trim().toUpperCase()] == null){
+        if (CURRENCIES[key.trim().toUpperCase(Locale.getDefault())] == null){
             return CURRENCIES["EUR"]
         }
-        return CURRENCIES[key.trim().toUpperCase()]
+        return CURRENCIES[key.trim().toUpperCase(Locale.getDefault())]
     }
 }

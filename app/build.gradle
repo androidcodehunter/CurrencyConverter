@@ -31,6 +31,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     //Android Testing Library
     testImplementation 'junit:junit:4.12'
+    testImplementation 'androidx.test.ext:junit:1.1.1'
     // Koin testing tools
     testImplementation 'org.koin:koin-test:2.0.1'
 
