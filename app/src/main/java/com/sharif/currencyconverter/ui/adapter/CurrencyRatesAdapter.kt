@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sharif.currencyconverter.R
 import com.sharif.currencyconverter.data.model.Rate
+import com.sharif.currencyconverter.util.CurrencyUtils
 import kotlinx.android.synthetic.main.list_item_currency_converter.view.*
 
 class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolder>(CURRENCY_RATES_COMPARATOR) {
@@ -51,6 +52,8 @@ class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolde
         private val etCurrencyAmount = itemView.etCurrencyAmount
 
         init {
+
+
             etCurrencyAmount.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus){
                     layoutPosition.takeIf { it > 0 }?.also { position ->
@@ -96,8 +99,13 @@ class CurrencyRatesAdapter: ListAdapter<Rate, CurrencyRatesAdapter.RateViewHolde
         }
 
         fun bindTo(rate: Rate) {
+            val currency = CurrencyUtils.getCurrency(rate.symbol)
+            currency?.apply {
+                ivCurrencySymbol.setImageResource(flag)
+                tvCurrencyName.text = name
+            }
+
             tvCurrencySymbol.text = rate.symbol
-            tvCurrencyName.text = "European"
             //Top amount is focused so we dont changed the top amount
             if (!etCurrencyAmount.isFocused){
                 etCurrencyAmount.setText((rate.rate * amount).toString())

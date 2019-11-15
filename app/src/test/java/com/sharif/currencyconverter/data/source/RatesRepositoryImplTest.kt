@@ -43,6 +43,7 @@ class RatesRepositoryImplTest: AutoCloseKoinTest(){
 
     private fun verifyResponse(response: Result<RateList?>) {
         if (response is Result.Success) {
+            print(response)
             //Check if coming data is not empty when successful
             assertEquals(true, !(response.data?.rates?.isEmpty() ?: true))
         } else if (response is Result.Error) {
