@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sharif.currencyconverter.R
 import com.sharif.currencyconverter.data.model.Rate
+import com.sharif.currencyconverter.ui.home.FragmentConverter.Companion.KEY_CURRENCY
 import com.sharif.currencyconverter.util.CurrencyUtils
+import com.sharif.currencyconverter.util.PreferenceUtil
 import kotlinx.android.synthetic.main.list_item_currency_converter.view.*
 
 class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
@@ -75,7 +77,7 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
     }
 
     inner class RateViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-
+        private var preference = PreferenceUtil(itemView.context)
         private val ivCurrencySymbol = itemView.ivCurrencySymbol
         private val tvCurrencySymbol = itemView.tvTitle
         private val tvCurrencyName = itemView.tvDescription
@@ -118,6 +120,7 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
         private fun moveSelectedListItemToTop(currentPosition: Int) {
             currencies.removeAt(currentPosition).also {
                 currencies.add(0, it)
+                preference.setString(KEY_CURRENCY, getItem(0)?.symbol!!)
             }
             ///submitList(newList)
             notifyItemMoved(currentPosition, 0)

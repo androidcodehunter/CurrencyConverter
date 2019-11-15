@@ -4,4 +4,6 @@
     <string name="tab_title_converter">Converter</string>
     <string name="rates_conversions"><![CDATA[Rates & conversions]]></string>
     <string name="are_you_sure_exit">Are you sure you want to exit from Currency Converter?</string>
+    <string name="network_error_message">Something went wrong. Please try again</string>
+    <string name="last_updated">Last updated on:</string>
 </resources>

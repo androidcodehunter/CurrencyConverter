@@ -1,5 +1,6 @@
 package com.sharif.currencyconverter.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,29 +11,43 @@ import com.sharif.currencyconverter.data.model.Rate
 import com.sharif.currencyconverter.data.model.RateList
 import com.sharif.currencyconverter.data.source.Result
 import com.sharif.currencyconverter.ui.adapter.CurrencyRatesAdapter
+import com.sharif.currencyconverter.util.PreferenceUtil
 import kotlinx.android.synthetic.main.fragment_converter.*
+import kotlinx.android.synthetic.main.network_error_layout.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.util.*
 
 class FragmentConverter: Fragment() {
 
     private lateinit var currencyRatesAdapter: CurrencyRatesAdapter
     private val ratesViewModel: RatesConverterViewModel by viewModel()
+    private lateinit var preference: PreferenceUtil
+    private lateinit var lastUpdateText: String
 
     private val ratesObserver = androidx.lifecycle.Observer<Result<RateList?>>{
         if (it is Result.Loading){
+            hideNetworkError()
             showLoading()
         } else if (it is Result.Success){
             Timber.d("Success $it")
+            hideNetworkError()
             hideLoading()
             //Convert to rates
             val rates = it.data?.rates?.map { Rate(it.key, it.value) }?.toMutableList()
             rates?.add(0, Rate(it.data.base, 1.0))
             currencyRatesAdapter.submitList(rates)
+
+            it.data?.date?.let {date ->
+
+                val c = Calendar.getInstance()
+                preference.setString(KEY_LAST_UPDATE_TIME, "$date, ${c.get(Calendar.HOUR)}h : ${c.get(Calendar.MINUTE)}m : ${c.get(Calendar.SECOND)}s")
+            }
+
             Timber.d("${rates?.size}")
         }else{
             Timber.d("Error")
-
+            showNetWorkError()
             hideLoading()
         }
     }
@@ -41,6 +56,23 @@ class FragmentConverter: Fragment() {
         currencyRatesAdapter.updateAmount(it)
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun showNetWorkError() {
+        networkErrorContainer.visibility = View.VISIBLE
+        val lastUpdateTime = preference.getString(KEY_LAST_UPDATE_TIME, "")
+        if (!lastUpdateTime.isNullOrEmpty()){
+            if (currencyRatesAdapter.itemCount > 0){
+                tvLastUpdateTime.visibility = View.VISIBLE
+                tvLastUpdateTime.text = "$lastUpdateText $lastUpdateTime"
+            }else{
+                tvLastUpdateTime.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun hideNetworkError(){
+        networkErrorContainer.visibility = View.GONE
+    }
 
     private fun showLoading() {
         loading.visibility = View.VISIBLE
@@ -48,6 +80,12 @@ class FragmentConverter: Fragment() {
 
     private fun hideLoading(){
         loading.visibility = View.GONE
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        preference = PreferenceUtil(context!!)
+        lastUpdateText = getString(R.string.last_updated)
     }
 
     override fun onCreateView(
@@ -66,15 +104,19 @@ class FragmentConverter: Fragment() {
         }
         rvRatesConverter.apply {
             adapter = currencyRatesAdapter
+            setHasFixedSize(true)
         }
 
         ratesViewModel.getRates().observe(viewLifecycleOwner, ratesObserver)
         ratesViewModel.getAmount().observe(viewLifecycleOwner, amountObserver)
-        ratesViewModel.setRates()
+        ratesViewModel.setRates(preference.getString(KEY_CURRENCY, DEFAULT_CURRENCY)!!)
     }
 
 
     companion object{
+        const val KEY_CURRENCY = "key_currency"
+        const val DEFAULT_CURRENCY = "EUR"
+        const val KEY_LAST_UPDATE_TIME = "key_last_update_time"
         fun newInstance(): FragmentConverter {
             return FragmentConverter()
         }
