@@ -20,4 +20,7 @@ class RatesRemoteDataSource(private val converterApiService: ConverterApiService
             Result.Error(e)
         }
     }
+
+    override suspend fun insertOrUpdateRates(rateList: RateList){
+    }
 }

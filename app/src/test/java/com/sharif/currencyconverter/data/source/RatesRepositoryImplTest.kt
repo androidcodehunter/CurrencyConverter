@@ -34,10 +34,10 @@ class RatesRepositoryImplTest: AutoCloseKoinTest(){
     @Test
     fun getRates_requestAllRatesFromRemoteDataSourceAndCheckException() = runBlocking {
         // get rates for EUR
-        val response = ratesRepository.getRates("EUR")
+        val response = ratesRepository.getRates("EUR", true)
         verifyResponse(response)
         //Now verify response with unknown symbol
-        val unknownResponse = ratesRepository.getRates("EURRRRRRRRRR")
+        val unknownResponse = ratesRepository.getRates("EURRRRRRRRRR", true)
         verifyResponse(unknownResponse)
     }
 

@@ -4,4 +4,5 @@ import com.sharif.currencyconverter.ui.home.RatesConverterViewModel.Companion.ON
 
 data class RateConfig(val rate: Rate,
                       val times: Int = Integer.MAX_VALUE,
-                      val delayTime: Long = ONE_SECOND_IN_MILLIS)
+                      val delayTime: Long = ONE_SECOND_IN_MILLIS,
+                      val forceUpdate: Boolean = true)

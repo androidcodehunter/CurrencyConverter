@@ -100,7 +100,7 @@ class FragmentConverter: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         currencyRatesAdapter = CurrencyRatesAdapter {
-                symbol, updatedAmount ->ratesViewModel.setRates(symbol, updatedAmount)
+                symbol, updatedAmount ->ratesViewModel.setRates(symbol, updatedAmount, forceUpdate = true)
         }
         rvRatesConverter.apply {
             adapter = currencyRatesAdapter
@@ -109,7 +109,7 @@ class FragmentConverter: Fragment() {
 
         ratesViewModel.getRates().observe(viewLifecycleOwner, ratesObserver)
         ratesViewModel.getAmount().observe(viewLifecycleOwner, amountObserver)
-        ratesViewModel.setRates(preference.getString(KEY_CURRENCY, DEFAULT_CURRENCY)!!)
+        ratesViewModel.setRates(preference.getString(KEY_CURRENCY, DEFAULT_CURRENCY)!!, forceUpdate = true)
     }
 
 
