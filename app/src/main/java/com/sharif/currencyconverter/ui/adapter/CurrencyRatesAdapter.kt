@@ -5,6 +5,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.sharif.currencyconverter.R
 import com.sharif.currencyconverter.data.model.Rate
@@ -12,6 +13,8 @@ import com.sharif.currencyconverter.ui.home.FragmentConverter.Companion.KEY_CURR
 import com.sharif.currencyconverter.util.CurrencyUtils
 import com.sharif.currencyconverter.util.PreferenceUtil
 import kotlinx.android.synthetic.main.list_item_currency_converter.view.*
+import timber.log.Timber
+import java.lang.NumberFormatException
 
 class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
     RecyclerView.Adapter<CurrencyRatesAdapter.RateViewHolder>() {
@@ -69,10 +72,6 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
 
     fun updateAmount(amount: Double){
         this.amount = amount
-
-        /*
-        * TODO Immediate update currency
-        * */
         notifyItemRangeChanged(1, currencies.size - 1, amount)
     }
 
@@ -82,6 +81,7 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
         private val tvCurrencySymbol = itemView.tvTitle
         private val tvCurrencyName = itemView.tvDescription
         private val etCurrencyAmount = itemView.etCurrencyAmount
+        private val numberFormatError = itemView.context.getString(R.string.number_out_of_range)
 
         init {
             etCurrencyAmount.setOnFocusChangeListener { _, hasFocus ->
@@ -100,7 +100,11 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
                     if (etCurrencyAmount.isFocused){
                         s?.let {
                             if (s.isNotEmpty()){
-                                onAmountUpdate(getItem(adapterPosition)!!.symbol, s.toString().toDouble())
+                                try {
+                                    onAmountUpdate(getItem(adapterPosition)!!.symbol, s.toString().toDouble())
+                                }catch (ex: NumberFormatException){
+                                    etCurrencyAmount.error = numberFormatError
+                                }
                             }
                         }
                     }
@@ -134,9 +138,15 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
             }
 
             tvCurrencySymbol.text = rate.symbol
-            //Top amount is focused so we dont changed the top amount
+
+            //Top amount is focused so we don't changed the top amount
             if (!etCurrencyAmount.isFocused){
-                etCurrencyAmount.setText((rate.rate * amount).toString())
+                try {
+                    etCurrencyAmount.setText((rate.rate * amount).toString())
+                }catch (ex: NumberFormatException){
+                    etCurrencyAmount.error = numberFormatError
+                }
+
             }
         }
     }

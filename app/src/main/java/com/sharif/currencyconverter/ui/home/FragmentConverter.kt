@@ -79,6 +79,7 @@ class FragmentConverter: Fragment() {
 
     private fun hideLoading(){
         loading.visibility = View.GONE
+        rvRatesConverter.visibility = View.VISIBLE
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
