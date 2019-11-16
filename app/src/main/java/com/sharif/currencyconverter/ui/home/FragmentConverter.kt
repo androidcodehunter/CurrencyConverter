@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.sharif.currencyconverter.R
 import com.sharif.currencyconverter.data.model.Rate
-import com.sharif.currencyconverter.data.model.RateList
+import com.sharif.currencyconverter.data.entity.RateList
 import com.sharif.currencyconverter.data.source.Result
 import com.sharif.currencyconverter.ui.adapter.CurrencyRatesAdapter
 import com.sharif.currencyconverter.util.PreferenceUtil

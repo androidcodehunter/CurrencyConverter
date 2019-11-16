@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.sharif.currencyconverter.data.entity.RateDao
-import com.sharif.currencyconverter.data.model.RateList
+import com.sharif.currencyconverter.data.entity.RateList
 
 @Database(entities = [RateList::class], version = 1, exportSchema = false)
 @TypeConverters(RateConverter::class)

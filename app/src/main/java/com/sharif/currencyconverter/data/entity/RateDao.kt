@@ -1,7 +1,6 @@
 package com.sharif.currencyconverter.data.entity
 
 import androidx.room.*
-import com.sharif.currencyconverter.data.model.RateList
 
 @Dao
 interface RateDao {
