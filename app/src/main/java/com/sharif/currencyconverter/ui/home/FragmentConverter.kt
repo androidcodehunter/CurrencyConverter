@@ -39,7 +39,6 @@ class FragmentConverter: Fragment() {
             currencyRatesAdapter.submitList(rates)
 
             it.data?.date?.let {date ->
-
                 val c = Calendar.getInstance()
                 preference.setString(KEY_LAST_UPDATE_TIME, "$date, ${c.get(Calendar.HOUR)}h : ${c.get(Calendar.MINUTE)}m : ${c.get(Calendar.SECOND)}s")
             }
