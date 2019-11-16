@@ -22,11 +22,11 @@ class CurrencyRatesAdapterTest{
     @Test
     fun checkIfCurrentClickedOrFocusedItemMovedToTop(){
         //make a list item focused by writing something on it.
-        onView(withRecyclerView(R.id.rvCurrencyRates).atPositionOnView(1, R.id.etCurrencyAmount)).perform(
+        onView(withRecyclerView(R.id.rvRatesConverter).atPositionOnView(1, R.id.etCurrencyAmount)).perform(
             clearText(), typeText("1.123"))
 
         // then verify that the focused item on top and its value matched with provided value 1.123
-        onView(withRecyclerView(R.id.rvCurrencyRates).atPositionOnView(0, R.id.etCurrencyAmount)).check(matches(
+        onView(withRecyclerView(R.id.rvRatesConverter).atPositionOnView(0, R.id.etCurrencyAmount)).check(matches(
             withText("1.123")))
     }
 
