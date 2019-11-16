@@ -7,7 +7,7 @@ import com.sharif.currencyconverter.data.model.RateList
 interface RateDao {
 
     @Query("select * from ratelist where base = :symbol")
-    fun getRates(symbol: String): RateList
+    fun getRates(symbol: String): RateList?
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)

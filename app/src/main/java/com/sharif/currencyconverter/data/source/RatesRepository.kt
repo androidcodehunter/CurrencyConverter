@@ -4,4 +4,5 @@ import com.sharif.currencyconverter.data.model.RateList
 
 interface RatesRepository {
     suspend fun getRates(base : String, forceUpdate: Boolean) : Result<RateList?>
+    suspend fun getSavedRates(base: String): Result<RateList?>
 }

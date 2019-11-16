@@ -23,6 +23,11 @@ class RatesConverterViewModel(private val ratesRepository: RatesRepository): Vie
                     emit(Result.Loading)
                     showLoading = false
                 }
+
+                //Try to show the saved data
+                emit(ratesRepository.getSavedRates(rateConfig.rate.symbol))
+
+
                 repeat(rateConfig.times){
                     emit(ratesRepository.getRates(rateConfig.rate.symbol, rateConfig.forceUpdate))
                     delay(rateConfig.delayTime)
@@ -52,13 +57,13 @@ class RatesConverterViewModel(private val ratesRepository: RatesRepository): Vie
     /** Set rate configuration or update amount
      *
      *@param times Executes the given function [action] specified number of [times]
-     *@param delayTime delay the operation specific time period
+     * @param delayTime delay the operation specific time period
      */
     fun setRates(symbol: String = "EUR",
                  amount: Double = 1.0,
                  times: Int = Integer.MAX_VALUE,
                  delayTime: Long = ONE_SECOND_IN_MILLIS,
-                 forceUpdate: Boolean = false){
+                 forceUpdate: Boolean = true){
         if (currentBaseSymbol == symbol){
             setAmount(amount)
         }else{
