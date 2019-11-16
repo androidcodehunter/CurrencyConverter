@@ -1,4 +1,4 @@
-package com.sharif.currencyconverter.data
+package com.sharif.currencyconverter.data.db
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

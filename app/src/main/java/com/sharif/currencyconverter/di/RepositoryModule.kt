@@ -1,6 +1,6 @@
 package com.sharif.currencyconverter.di
 
-import com.sharif.currencyconverter.data.AppDatabase
+import com.sharif.currencyconverter.data.db.AppDatabase
 import com.sharif.currencyconverter.data.source.RatesRepositoryImpl
 import com.sharif.currencyconverter.data.source.local.RatesLocalDataSource
 import com.sharif.currencyconverter.data.source.remote.RatesRemoteDataSource

@@ -1,4 +1,4 @@
-package com.sharif.currencyconverter.data.entity
+package com.sharif.currencyconverter.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

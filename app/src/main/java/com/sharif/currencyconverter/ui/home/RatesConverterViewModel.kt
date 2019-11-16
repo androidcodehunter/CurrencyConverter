@@ -3,7 +3,7 @@ package com.sharif.currencyconverter.ui.home
 import androidx.lifecycle.*
 import com.sharif.currencyconverter.data.model.Rate
 import com.sharif.currencyconverter.data.model.RateConfig
-import com.sharif.currencyconverter.data.entity.RateList
+import com.sharif.currencyconverter.data.db.entity.RateList
 import com.sharif.currencyconverter.data.source.RatesRepository
 import com.sharif.currencyconverter.data.source.Result
 import kotlinx.coroutines.delay

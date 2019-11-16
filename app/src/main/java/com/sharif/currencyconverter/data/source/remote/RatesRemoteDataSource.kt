@@ -1,6 +1,6 @@
 package com.sharif.currencyconverter.data.source.remote
 
-import com.sharif.currencyconverter.data.entity.RateList
+import com.sharif.currencyconverter.data.db.entity.RateList
 import com.sharif.currencyconverter.data.network.ConverterApiService
 import com.sharif.currencyconverter.data.source.RatesDataSource
 import com.sharif.currencyconverter.data.source.Result

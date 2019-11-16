@@ -1,6 +1,6 @@
 package com.sharif.currencyconverter.data.source
 
-import com.sharif.currencyconverter.data.entity.RateList
+import com.sharif.currencyconverter.data.db.entity.RateList
 import java.lang.Exception
 
 class RatesRepositoryImpl(private val ratesLocalDataSource: RatesDataSource,

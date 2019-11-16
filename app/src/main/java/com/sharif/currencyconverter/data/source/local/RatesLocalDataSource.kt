@@ -1,7 +1,7 @@
 package com.sharif.currencyconverter.data.source.local
 
-import com.sharif.currencyconverter.data.AppDatabase
-import com.sharif.currencyconverter.data.entity.RateList
+import com.sharif.currencyconverter.data.db.AppDatabase
+import com.sharif.currencyconverter.data.db.entity.RateList
 import com.sharif.currencyconverter.data.source.RatesDataSource
 import com.sharif.currencyconverter.data.source.Result
 import com.sharif.currencyconverter.data.source.Result.Success

@@ -1,6 +1,6 @@
 package com.sharif.currencyconverter.data.source
 
-import com.sharif.currencyconverter.data.entity.RateList
+import com.sharif.currencyconverter.data.db.entity.RateList
 import com.sharif.currencyconverter.di.converterRepositoryModule
 import com.sharif.currencyconverter.di.netWorkModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
