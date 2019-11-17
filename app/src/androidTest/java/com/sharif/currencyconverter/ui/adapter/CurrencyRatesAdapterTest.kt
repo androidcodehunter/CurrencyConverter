@@ -7,7 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.sharif.currencyconverter.R
-import com.sharif.currencyconverter.ui.adapter.TestUtils.withRecyclerView
+import com.sharif.currencyconverter.utils.TestUtils.withRecyclerView
 import org.junit.Test
 import org.junit.runner.RunWith
 import com.sharif.currencyconverter.ui.home.MainActivity

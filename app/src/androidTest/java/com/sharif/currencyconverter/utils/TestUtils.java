@@ -1,4 +1,4 @@
-package com.sharif.currencyconverter.ui.adapter;
+package com.sharif.currencyconverter.utils;
 
 import android.view.View;
 
@@ -9,6 +9,9 @@ import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.espresso.util.HumanReadables;
+
+import com.sharif.currencyconverter.utils.RecyclerViewMatcher;
+
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 

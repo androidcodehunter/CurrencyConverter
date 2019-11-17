@@ -1,4 +1,4 @@
-package com.sharif.currencyconverter.ui.adapter
+package com.sharif.currencyconverter.utils
 
 import android.content.res.Resources
 import android.view.View
