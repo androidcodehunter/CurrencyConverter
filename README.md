@@ -5,7 +5,7 @@ App main architecture is based on MVVM. Main repository(RatesRepository) is resp
 
 Tools and technologies: <br>
 Koin for Dependency injection<br>
-Kotlin Coroutines for threat management like api calling<br>
+Kotlin Coroutines for thread management like api calling<br>
 Retrofit for networking<br>
 ViewPager2 for better efficiency<br>
 Room for cache management<br>
