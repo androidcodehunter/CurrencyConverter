@@ -12,7 +12,7 @@ Room for cache management<br>
 
 <h1>Testing:</h1><br>
 For testing purpose the app used mockito, espresso and junit<br>
-Some basic test is performed such as repository test, currency test and RecyclerView move to top test with combination of unit and android test. 
+Some basic test is performed such as repository test, currency test and RecyclerView move to top test with combination of unit and instrumentation test. 
 
 <br>Edge cases considered while developing the app:<br>
 1. If user select a currency and internet goes, calculate all currencies based on last updated data.<br>
