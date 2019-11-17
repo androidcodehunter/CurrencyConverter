@@ -17,4 +17,4 @@ For testing purpose the app used mockito, espresso and junit<br>
 Edge cases considered while developing the app:<br>
 1. If user select a currency and internet goes, calculate all currencies based on last updated data.<br>
 2. Show user their last selected currency data when they go outside of the app and comes back with no internet connection. <br>
-3. Cache last currency data to show it for user to guess instead of showing nothing. <br>
+3. Cache last currency data to show it for user to guess instead of showing nothing but here the app shows last updated date as well to guess currency better.<br>
