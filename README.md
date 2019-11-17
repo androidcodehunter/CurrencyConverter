@@ -1,7 +1,7 @@
 # CurrencyConverter
 Fancy currency converter app for android. 
 
-App main architecture is based on MVVM. 
+App main architecture is based on MVVM. Main repository(RatesRepository) is responsible for getting data from LocaDataSource(Backed by room database) and RemoteDataSource(Backed by Retrofit api call). When app goes offline, app shows data from LocalDataSource. 
 
 Tools and technologies: <br>
 Koin for Dependency injection<br>
