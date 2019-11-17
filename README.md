@@ -10,7 +10,7 @@ Retrofit for networking<br>
 ViewPager2 for better efficiency<br>
 Room for cache management<br>
 
-<h1>Testing:<h1><br>
+<h1>Testing:</h1><br>
 For testing purpose the app used mockito, espresso and junit<br>
 Some basic test is performed such as repository test, currency test and RecyclerView move to top when clicked test. 
 
