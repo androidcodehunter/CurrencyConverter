@@ -1,10 +1,6 @@
 package com.sharif.currencyconverter.data.source
 
-import android.app.Application
 import android.content.Context
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.platform.app.InstrumentationRegistry
-import com.sharif.currencyconverter.ConverterApplication
 import com.sharif.currencyconverter.data.db.entity.RateList
 import com.sharif.currencyconverter.di.converterRepositoryModule
 import com.sharif.currencyconverter.di.netWorkModule
