@@ -27,10 +27,10 @@ class RatesConverterViewModel(private val ratesRepository: RatesRepository): Vie
                 //Try to show the saved data
                 emit(ratesRepository.getSavedRates(rateConfig.rate.symbol))
 
-                /*repeat(rateConfig.times){
+                repeat(rateConfig.times){
                     emit(ratesRepository.getRates(rateConfig.rate.symbol, rateConfig.forceUpdate))
                     delay(rateConfig.delayTime)
-                }*/
+                }
                 emit(ratesRepository.getRates(rateConfig.rate.symbol, rateConfig.forceUpdate))
                 currentBaseSymbol = rateConfig.rate.symbol
             }

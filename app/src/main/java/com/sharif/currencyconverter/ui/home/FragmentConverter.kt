@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.network_error_layout.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.util.*
+import kotlin.collections.ArrayList
 
 class FragmentConverter: Fragment() {
 
@@ -109,19 +110,31 @@ class FragmentConverter: Fragment() {
             setHasFixedSize(true)
             ///(itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
+
+        val list = savedInstanceState?.getParcelableArrayList<Rate>("PERCELABLE")
+        list?.let {
+            if (it.isNotEmpty()){
+                currencyRatesAdapter.submitList(it)
+            }
+        }
+
         ratesViewModel.getRates().observe(viewLifecycleOwner, ratesObserver)
         ratesViewModel.getAmount().observe(viewLifecycleOwner, amountObserver)
         Timber.d("onViewCreated ${savedInstanceState?.getString(KEY_CURRENCY)}")
 
-        if (savedInstanceState?.getString(KEY_CURRENCY) == null){
+       // if (savedInstanceState?.getString(KEY_CURRENCY) == null){
             ratesViewModel.setRates(preference.getString(KEY_CURRENCY, DEFAULT_CURRENCY)!!, forceUpdate = true)
-        }else{
-            ratesViewModel.setRates(savedInstanceState.getString(KEY_CURRENCY)!!, forceUpdate = true)
-        }
+      //  }else{
+       //     ratesViewModel.setRates(savedInstanceState.getString(KEY_CURRENCY)!!, forceUpdate = true)
+       // }
+
+
 
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        currencyRatesAdapter.getRates()
+        outState.putParcelableArrayList("PERCELABLE", ArrayList(currencyRatesAdapter.getRates()))
         outState.putString(KEY_CURRENCY, "AUD")
         Timber.d("onSaveInstanceState")
     }

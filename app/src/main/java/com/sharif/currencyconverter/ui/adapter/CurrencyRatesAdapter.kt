@@ -41,6 +41,16 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
 
     }
 
+    fun getRates(): MutableList<Rate> {
+        val rates = mutableListOf<Rate>()
+        currencies.forEach {
+            symbolAndRates[it]?.let {
+                rates.add(it)
+            }
+        }
+        return rates
+    }
+
     override fun getItemCount() = currencies.size
 
     fun getItem(position: Int): Rate?{
