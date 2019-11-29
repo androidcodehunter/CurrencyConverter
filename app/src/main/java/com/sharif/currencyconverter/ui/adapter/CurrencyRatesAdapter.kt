@@ -1,11 +1,12 @@
 package com.sharif.currencyconverter.ui.adapter
 
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sharif.currencyconverter.R
 import com.sharif.currencyconverter.data.model.Rate
@@ -14,7 +15,7 @@ import com.sharif.currencyconverter.util.CurrencyUtils
 import com.sharif.currencyconverter.util.PreferenceUtil
 import kotlinx.android.synthetic.main.list_item_currency_converter.view.*
 import timber.log.Timber
-import java.lang.NumberFormatException
+
 
 class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
     RecyclerView.Adapter<CurrencyRatesAdapter.RateViewHolder>() {
@@ -44,7 +45,7 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
     override fun getItemCount() = currencies.size
 
     fun getItem(position: Int): Rate?{
-        return symbolAndRates.get(currencies.get(position))
+        return symbolAndRates[currencies[position]]
     }
 
 
@@ -90,6 +91,10 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
                         moveSelectedListItemToTop(position)
                         etCurrencyAmount.setSelection(etCurrencyAmount.text?.length ?: 0)
                     }
+                }else{
+                    //Hiding the SoftKeyboard while scrolling.
+                    val imm = itemView.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(etCurrencyAmount.windowToken, 0)
                 }
             }
 

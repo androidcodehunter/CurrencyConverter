@@ -49,9 +49,9 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation "org.mockito:mockito-core:3.1.0"
 
-    implementation "androidx.viewpager2:viewpager2:1.0.0-rc01"
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
     //Material Components for TabLayout
-    implementation 'com.google.android.material:material:1.2.0-alpha01'
+    implementation 'com.google.android.material:material:1.2.0-alpha02'
     //Timber for easy logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
     //Rettrofit for networking
@@ -69,7 +69,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc02"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc02"
     implementation "androidx.preference:preference-ktx:1.1.0"
-    implementation "androidx.room:room-runtime:2.2.1"
-    kapt "androidx.room:room-compiler:2.2.1"
+    implementation "androidx.room:room-runtime:2.2.2"
+    kapt "androidx.room:room-compiler:2.2.2"
 
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.sharif.currencyconverter.R
 import com.sharif.currencyconverter.data.model.Rate
 import com.sharif.currencyconverter.data.db.entity.RateList
@@ -102,11 +103,12 @@ class FragmentConverter: Fragment() {
         currencyRatesAdapter = CurrencyRatesAdapter {
                 symbol, updatedAmount ->ratesViewModel.setRates(symbol, updatedAmount, forceUpdate = true)
         }
+
         rvRatesConverter.apply {
             adapter = currencyRatesAdapter
             setHasFixedSize(true)
+            ///(itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
-
         ratesViewModel.getRates().observe(viewLifecycleOwner, ratesObserver)
         ratesViewModel.getAmount().observe(viewLifecycleOwner, amountObserver)
         ratesViewModel.setRates(preference.getString(KEY_CURRENCY, DEFAULT_CURRENCY)!!, forceUpdate = true)
