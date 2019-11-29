@@ -31,7 +31,7 @@ class FragmentConverter: Fragment() {
             hideNetworkError()
             showLoading()
         } else if (it is Result.Success){
-            Timber.d("Success $it")
+            //Timber.d("Success $it")
             hideNetworkError()
             hideLoading()
             //Convert to rates
@@ -111,7 +111,19 @@ class FragmentConverter: Fragment() {
         }
         ratesViewModel.getRates().observe(viewLifecycleOwner, ratesObserver)
         ratesViewModel.getAmount().observe(viewLifecycleOwner, amountObserver)
-        ratesViewModel.setRates(preference.getString(KEY_CURRENCY, DEFAULT_CURRENCY)!!, forceUpdate = true)
+        Timber.d("onViewCreated ${savedInstanceState?.getString(KEY_CURRENCY)}")
+
+        if (savedInstanceState?.getString(KEY_CURRENCY) == null){
+            ratesViewModel.setRates(preference.getString(KEY_CURRENCY, DEFAULT_CURRENCY)!!, forceUpdate = true)
+        }else{
+            ratesViewModel.setRates(savedInstanceState.getString(KEY_CURRENCY)!!, forceUpdate = true)
+        }
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(KEY_CURRENCY, "AUD")
+        Timber.d("onSaveInstanceState")
     }
 
 
@@ -119,6 +131,7 @@ class FragmentConverter: Fragment() {
         const val KEY_CURRENCY = "key_currency"
         const val DEFAULT_CURRENCY = "EUR"
         const val KEY_LAST_UPDATE_TIME = "key_last_update_time"
+
         fun newInstance(): FragmentConverter {
             return FragmentConverter()
         }

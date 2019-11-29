@@ -14,7 +14,6 @@ import com.sharif.currencyconverter.ui.home.FragmentConverter.Companion.KEY_CURR
 import com.sharif.currencyconverter.util.CurrencyUtils
 import com.sharif.currencyconverter.util.PreferenceUtil
 import kotlinx.android.synthetic.main.list_item_currency_converter.view.*
-import timber.log.Timber
 
 
 class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
@@ -114,7 +113,6 @@ class CurrencyRatesAdapter(val onAmountUpdate: (String, Double) -> Unit) :
                         }
                     }
                 }
-
             })
 
             itemView.setOnClickListener {
